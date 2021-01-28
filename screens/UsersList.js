@@ -1,4 +1,3 @@
-import { useLinkProps } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Button, ScrollView } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
@@ -35,7 +34,11 @@ const UsersList = (props) => {
         {
             users.map(user => {
                 return (
-                    <ListItem key={user.id}>
+                    <ListItem key={user.id} bottomDivider onPress={() => {
+                        props.navigation.navigate('UserDetailScreen', {
+                            userId: user.id
+                        })
+                    }}>
                         <ListItem.Chevron/>
                         <Avatar
                             source={{uri: 
