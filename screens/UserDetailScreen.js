@@ -6,7 +6,9 @@ import {
   ScrollView,
   StyleSheet,
   ActivityIndicator,
-  Alert
+  Alert,
+  Text,
+  TouchableOpacity
 } from "react-native";
 import firebase from "../database/firebase";
 
@@ -63,7 +65,7 @@ const UserDetailScreen = (props) => {
 
   const openConfirmationAlert = () => {
     Alert.alert('Remove the user!', 'Are you sure?', [
-        { text: 'Yes', onPress: () => deleteUser},
+        { text: 'Yes', onPress: () => deleteUser()},
         { text: 'No', onPress: () => console.log('NO')},
     ])
   }
@@ -103,18 +105,12 @@ const UserDetailScreen = (props) => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Button
-          style={styles.buttonUpdate}
-          title="UPDATE USER"
-          onPress={() => updateUser()}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          style={styles.buttonDelete}
-          title="DELETE USER"
-          onPress={() => openConfirmationAlert()}
-        />
+        <TouchableOpacity style={styles.buttonUpdate} onPress={() => updateUser()}>
+          <Text style={styles.deleteText}>UPDATE USER</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonDelete} onPress={() => openConfirmationAlert()}>
+          <Text style={styles.deleteText}>DELETE USER</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -143,11 +139,34 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     margin: 5,
+    alignItems: "flex-end",
+    display: "flex",
+    justifyContent: "space-between",
   },
 
-  buttonUpdate: {},
+  buttonUpdate: {
+    width: "50%",
+    borderRadius: 30,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#45c930",
+    marginBottom: 10
+  },
 
-  buttonDelete: {},
+  buttonDelete: {
+    width: "50%",
+    borderRadius: 30,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#d4240d",
+  },
+
+  deleteText: {
+    color: "#ffffff",
+    fontWeight: "bold",
+  }
 });
 
 export default UserDetailScreen;
